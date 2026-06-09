@@ -1,172 +1,201 @@
-/* Базовые стили */
+/* ============================================
+   БАЗОВЫЙ СБРОС СТИЛЕЙ (RESET)
+   Убираем встроенные отступы браузера
+   ============================================ */
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0;            /* Убираем внешние отступы у всех элементов */
+    padding: 0;           /* Убираем внутренние отступы у всех элементов */
+    box-sizing: border-box; /* Ширина элемента включает padding и border */
 }
+
+/* ============================================
+   СТИЛИ ДЛЯ ВСЕЙ СТРАНИЦЫ
+   ============================================ */
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f0f2f5;
-    color: #333;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Шрифт текста на всём сайте */
+    background: #f0f2f5;     /* Светло-серый фон страницы */
+    color: #333;             /* Тёмно-серый цвет текста */
+    min-height: 100vh;       /* Минимальная высота = высота экрана */
+    display: flex;           /* Включаем flex-раскладку */
+    flex-direction: column;  /* Элементы идут сверху вниз (шапка, контент, подвал) */
 }
 
-/* Навигация */
+/* ============================================
+   НАВИГАЦИОННАЯ ПАНЕЛЬ (ШАПКА САЙТА)
+   ============================================ */
+
 nav {
-    background: #2c3e50;
-    color: white;
-    padding: 1rem 2rem;
+    background: #2c3e50;     /* Тёмно-синий фон шапки */
+    color: white;            /* Белый цвет текста в шапке */
+    padding: 1rem 2rem;      /* Внутренние отступы: 1rem сверху/снизу, 2rem слева/справа */
 }
 
 .nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    max-width: 1200px;       /* Максимальная ширина контейнера на больших экранах */
+    margin: 0 auto;          /* Центрируем контейнер по горизонтали */
+    display: flex;           /* Включаем flex для расположения элементов в строку */
+    justify-content: space-between; /* Логотип слева, ссылки справа */
+    align-items: center;     /* Выравниваем элементы по вертикали по центру */
 }
 
 .logo {
-    color: white;
-    text-decoration: none;
-    font-size: 1.5rem;
-    font-weight: bold;
+    color: white;            /* Белый цвет логотипа */
+    text-decoration: none;   /* Убираем подчёркивание у ссылки-логотипа */
+    font-size: 1.5rem;       /* Размер шрифта логотипа (в 1.5 раза больше обычного) */
+    font-weight: bold;       /* Жирное начертание */
 }
 
 .nav-links a, .nav-links span {
-    color: white;
-    text-decoration: none;
-    margin-left: 1.5rem;
+    color: white;            /* Белый цвет ссылок в навигации */
+    text-decoration: none;   /* Убираем подчёркивание у ссылок */
+    margin-left: 1.5rem;     /* Отступ слева у каждого элемента */
 }
 
 .nav-links a:hover {
-    text-decoration: underline;
+    text-decoration: underline; /* Подчёркивание при наведении мыши */
 }
 
-/* Основной контент */
+/* ============================================
+   ОСНОВНОЙ КОНТЕНТ
+   ============================================ */
+
 main {
-    flex: 1;
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-    width: 100%;
+    flex: 1;                 /* Занимает всё доступное пространство (прижимает подвал вниз) */
+    max-width: 1200px;       /* Максимальная ширина контента */
+    margin: 2rem auto;       /* Отступ 2rem сверху/снизу и авто по бокам (центрирование) */
+    padding: 0 1rem;         /* Внутренний отступ 1rem слева и справа */
+    width: 100%;             /* На маленьких экранах занимает всю ширину */
 }
 
-/* Формы */
+/* ============================================
+   ФОРМЫ (РЕГИСТРАЦИЯ И ВХОД)
+   ============================================ */
+
 .form-container {
-    max-width: 400px;
-    margin: 2rem auto;
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    max-width: 400px;        /* Максимальная ширина формы */
+    margin: 2rem auto;       /* Центрируем форму с отступом сверху */
+    background: white;       /* Белый фон формы */
+    padding: 2rem;           /* Внутренний отступ со всех сторон */
+    border-radius: 8px;      /* Скруглённые углы формы */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Лёгкая тень вокруг формы */
 }
 
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1rem;     /* Отступ снизу у каждой группы полей */
 }
 
 .form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
+    display: block;          /* Заголовок поля на отдельной строке */
+    margin-bottom: 0.5rem;   /* Отступ между заголовком и полем ввода */
+    font-weight: 600;        /* Полужирный шрифт заголовка */
 }
 
 .form-group input {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
+    width: 100%;             /* Поле ввода на всю ширину контейнера */
+    padding: 0.5rem;         /* Внутренний отступ внутри поля */
+    border: 1px solid #ddd;  /* Светло-серая рамка вокруг поля */
+    border-radius: 4px;      /* Слегка скруглённые углы поля */
+    font-size: 1rem;         /* Размер шрифта как у обычного текста */
 }
 
 .form-footer {
-    margin-top: 1rem;
-    text-align: center;
+    margin-top: 1rem;        /* Отступ сверху */
+    text-align: center;      /* Текст по центру */
 }
 
-/* Кнопки */
+/* ============================================
+   КНОПКИ
+   ============================================ */
+
 .btn {
-    display: inline-block;
-    padding: 0.6rem 1.5rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-    text-decoration: none;
+    display: inline-block;   /* Позволяет задать ширину и отступы */
+    padding: 0.6rem 1.5rem;  /* Внутренние отступы: 0.6rem сверху/снизу, 1.5rem слева/справа */
+    border: none;            /* Убираем рамку */
+    border-radius: 4px;      /* Скруглённые углы */
+    cursor: pointer;         /* При наведении курсор меняется на "руку" */
+    font-size: 1rem;         /* Размер шрифта */
+    text-decoration: none;   /* Убираем подчёркивание у ссылок-кнопок */
 }
 
 .btn-primary {
-    background: #3498db;
-    color: white;
+    background: #3498db;     /* Голубой фон кнопки */
+    color: white;            /* Белый текст */
 }
 
 .btn-primary:hover {
-    background: #2980b9;
+    background: #2980b9;     /* Темнеет при наведении мыши */
 }
 
 .btn-secondary {
-    background: #95a5a6;
-    color: white;
+    background: #95a5a6;     /* Серый фон */
+    color: white;            /* Белый текст */
 }
 
-/* Главная страница */
+/* ============================================
+   ГЛАВНАЯ СТРАНИЦА (HERO)
+   ============================================ */
+
 .hero {
-    text-align: center;
-    padding: 4rem 2rem;
+    text-align: center;      /* Текст по центру */
+    padding: 4rem 2rem;      /* Большие внутренние отступы */
 }
 
 .hero h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    font-size: 3rem;         /* Очень крупный заголовок */
+    margin-bottom: 1rem;     /* Отступ снизу */
 }
 
 .hero p {
-    font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 2rem;
+    font-size: 1.2rem;       /* Увеличенный размер описания */
+    color: #666;             /* Серый цвет текста */
+    margin-bottom: 2rem;     /* Отступ снизу */
 }
 
 .hero-buttons .btn {
-    margin: 0 0.5rem;
+    margin: 0 0.5rem;        /* Отступы слева и справа между кнопками */
 }
 
-/* Флеш-сообщения */
+/* ============================================
+   FLASH-СООБЩЕНИЯ (УВЕДОМЛЕНИЯ)
+   ============================================ */
+
 .flash-messages {
-    margin-bottom: 1rem;
+    margin-bottom: 1rem;     /* Отступ снизу от блока с сообщениями */
 }
 
 .flash {
-    padding: 1rem;
-    border-radius: 4px;
-    margin-bottom: 0.5rem;
+    padding: 1rem;           /* Внутренний отступ сообщения */
+    border-radius: 4px;      /* Скруглённые углы */
+    margin-bottom: 0.5rem;   /* Отступ между сообщениями */
 }
 
 .flash-success {
-    background: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
+    background: #d4edda;     /* Светло-зелёный фон (успех) */
+    color: #155724;          /* Тёмно-зелёный текст */
+    border: 1px solid #c3e6cb; /* Зелёная рамка */
 }
 
 .flash-error {
-    background: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
+    background: #f8d7da;     /* Светло-красный фон (ошибка) */
+    color: #721c24;          /* Тёмно-красный текст */
+    border: 1px solid #f5c6cb; /* Красная рамка */
 }
 
 .flash-info {
-    background: #d1ecf1;
-    color: #0c5460;
-    border: 1px solid #bee5eb;
+    background: #d1ecf1;     /* Светло-голубой фон (информация) */
+    color: #0c5460;          /* Тёмно-голубой текст */
+    border: 1px solid #bee5eb; /* Голубая рамка */
 }
 
-/* Подвал */
+/* ============================================
+   ПОДВАЛ САЙТА
+   ============================================ */
+
 footer {
-    background: #2c3e50;
-    color: white;
-    text-align: center;
-    padding: 1rem;
+    background: #2c3e50;     /* Тёмно-синий фон (как у шапки) */
+    color: white;            /* Белый текст */
+    text-align: center;      /* Текст по центру */
+    padding: 1rem;           /* Внутренний отступ */
 }
