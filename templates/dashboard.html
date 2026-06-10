@@ -4,6 +4,64 @@
 {% block content %}
 <div class="dashboard">
     <h1>📋 Мои задачи</h1>
-    <p>Здесь будет список задач (добавим завтра)</p>
+    
+    <!-- Форма создания задачи -->
+    <div class="form-container" style="max-width: 600px;">
+        <h2>➕ Новая задача</h2>
+        <form method="POST" action="{{ url_for('add_task') }}">
+            <div class="form-group">
+                <label for="title">Название задачи *</label>
+                <input type="text" id="title" name="title" required placeholder="Например: Купить продукты">
+            </div>
+            <div class="form-group">
+                <label for="description">Описание</label>
+                <textarea id="description" name="description" rows="3" placeholder="Подробности задачи..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="deadline">Срок выполнения</label>
+                <input type="date" id="deadline" name="deadline">
+            </div>
+            <button type="submit" class="btn btn-primary">Создать задачу</button>
+        </form>
+    </div>
+    
+    <!-- Список задач -->
+    <div class="tasks-container">
+        <h2>📝 Список задач ({{ tasks|length }})</h2>
+        
+        {% if tasks %}
+            {% for task in tasks %}
+                <div class="task-card">
+                    <div class="task-header">
+                        <h3>{{ task.title }}</h3>
+                        <span class="task-status status-{{ task.status }}">
+                            {% if task.status == 'new' %}
+                                🆕 Новая
+                            {% elif task.status == 'in_progress' %}
+                                🔄 В работе
+                            {% elif task.status == 'done' %}
+                                ✅ Выполнена
+                            {% endif %}
+                        </span>
+                    </div>
+                    
+                    {% if task.description %}
+                        <p class="task-description">{{ task.description }}</p>
+                    {% endif %}
+                    
+                    <div class="task-footer">
+                        <span class="task-date">📅 Создано: {{ task.created_at.strftime('%d.%m.%Y %H:%M') }}</span>
+                        {% if task.deadline %}
+                            <span class="task-deadline">⏰ Срок: {{ task.deadline.strftime('%d.%m.%Y') }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <p>🎉 У вас пока нет задач. Создайте первую!</p>
+            </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

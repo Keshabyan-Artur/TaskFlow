@@ -120,6 +120,39 @@ def dashboard():
     tasks = Task.query.filter_by(user_id=current_user.id).order_by(Task.created_at.desc()).all()
     return render_template('dashboard.html', tasks=tasks)
 
+@app.route('/add_task', methods=['POST'])
+@login_required
+def add_task():
+    title = request.form.get('title')
+    description = request.form.get('description')
+    deadline_str = request.form.get('deadline')
+    
+    if not title:
+        flash('Название задачи обязательно!', 'error')
+        return redirect(url_for('dashboard'))
+    
+    # Преобразуем строку с датой в объект date
+    from datetime import datetime
+    deadline = None
+    if deadline_str:
+        try:
+            deadline = datetime.strptime(deadline_str, '%Y-%m-%d').date()
+        except ValueError:
+            pass
+    
+    task = Task(
+        title=title,
+        description=description or '',
+        deadline=deadline,
+        user_id=current_user.id
+    )
+    
+    db.session.add(task)
+    db.session.commit()
+    
+    flash('Задача создана!', 'success')
+    return redirect(url_for('dashboard'))
+
 # ========== СОЗДАНИЕ ТАБЛИЦ ПРИ ПЕРВОМ ЗАПУСКЕ ==========
 with app.app_context():
     db.create_all()

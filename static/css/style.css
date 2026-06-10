@@ -15,8 +15,8 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Шрифт текста на всём сайте */
-    background: #f0f2f5;     /* Светло-серый фон страницы */
-    color: #333;             /* Тёмно-серый цвет текста */
+    background: #f9f9fa;     /* белый фон страницы */
+    color: #070606;             /* черный цвет текста */
     min-height: 100vh;       /* Минимальная высота = высота экрана */
     display: flex;           /* Включаем flex-раскладку */
     flex-direction: column;  /* Элементы идут сверху вниз (шапка, контент, подвал) */
@@ -27,7 +27,7 @@ body {
    ============================================ */
 
 nav {
-    background: #2c3e50;     /* Тёмно-синий фон шапки */
+    background: #080808;     /* черный фон шапки */
     color: white;            /* Белый цвет текста в шапке */
     padding: 1rem 2rem;      /* Внутренние отступы: 1rem сверху/снизу, 2rem слева/справа */
 }
@@ -113,14 +113,14 @@ main {
     display: inline-block;   /* Позволяет задать ширину и отступы */
     padding: 0.6rem 1.5rem;  /* Внутренние отступы: 0.6rem сверху/снизу, 1.5rem слева/справа */
     border: none;            /* Убираем рамку */
-    border-radius: 4px;      /* Скруглённые углы */
+    border-radius: 8px;      /* Скруглённые углы */
     cursor: pointer;         /* При наведении курсор меняется на "руку" */
     font-size: 1rem;         /* Размер шрифта */
     text-decoration: none;   /* Убираем подчёркивание у ссылок-кнопок */
 }
 
 .btn-primary {
-    background: #3498db;     /* Голубой фон кнопки */
+    background: #30b446;     /* Голубой фон кнопки */
     color: white;            /* Белый текст */
 }
 
@@ -129,7 +129,7 @@ main {
 }
 
 .btn-secondary {
-    background: #95a5a6;     /* Серый фон */
+    background: #58a6ac;     /* Серый фон */
     color: white;            /* Белый текст */
 }
 
@@ -149,7 +149,7 @@ main {
 
 .hero p {
     font-size: 1.2rem;       /* Увеличенный размер описания */
-    color: #666;             /* Серый цвет текста */
+    color: #070000;             /* Серый цвет текста */
     margin-bottom: 2rem;     /* Отступ снизу */
 }
 
@@ -167,7 +167,7 @@ main {
 
 .flash {
     padding: 1rem;           /* Внутренний отступ сообщения */
-    border-radius: 4px;      /* Скруглённые углы */
+    border-radius: 10px;      /* Скруглённые углы */
     margin-bottom: 0.5rem;   /* Отступ между сообщениями */
 }
 
@@ -194,8 +194,124 @@ main {
    ============================================ */
 
 footer {
-    background: #2c3e50;     /* Тёмно-синий фон (как у шапки) */
+    background: #010102;     /* черный фон (как у шапки) */
     color: white;            /* Белый текст */
     text-align: center;      /* Текст по центру */
     padding: 1rem;           /* Внутренний отступ */
+}
+/* ============================================
+   СТРАНИЦА ЗАДАЧ (DASHBOARD)
+   ============================================ */
+
+.dashboard {
+    width: 100%;             /* Занимает всю доступную ширину */
+}
+
+.dashboard h1 {
+    margin-bottom: 2rem;     /* Отступ снизу от заголовка */
+    color: #2c3e50;          /* Тёмно-синий цвет заголовка */
+}
+
+/* Поле ввода описания */
+.form-group textarea {
+    width: 100%;             /* На всю ширину */
+    padding: 0.5rem;         /* Внутренний отступ */
+    border: 1px solid #ddd;  /* Серая рамка */
+    border-radius: 4px;      /* Скруглённые углы */
+    font-size: 1rem;         /* Размер шрифта */
+    font-family: inherit;    /* Такой же шрифт как везде */
+    resize: vertical;        /* Можно растягивать только по вертикали */
+}
+
+/* Контейнер для списка задач */
+.tasks-container {
+    margin-top: 2rem;        /* Отступ сверху */
+}
+
+.tasks-container h2 {
+    margin-bottom: 1rem;     /* Отступ снизу */
+    color: #2c3e50;          /* Тёмно-синий цвет */
+}
+
+/* Карточка задачи */
+.task-card {
+    background: white;            /* Белый фон */
+    padding: 1.5rem;              /* Внутренний отступ */
+    margin-bottom: 1rem;          /* Отступ между карточками */
+    border-radius: 8px;           /* Скруглённые углы */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Лёгкая тень */
+    border-left: 4px solid #3498db; /* Синяя полоска слева */
+    transition: transform 0.2s;   /* Плавная анимация при наведении */
+}
+
+.task-card:hover {
+    transform: translateY(-2px);  /* Приподнимается при наведении */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Тень усиливается */
+}
+
+/* Заголовок карточки */
+.task-header {
+    display: flex;                /* Располагаем в строку */
+    justify-content: space-between; /* Название слева, статус справа */
+    align-items: center;          /* По центру по вертикали */
+    margin-bottom: 0.5rem;        /* Отступ снизу */
+}
+
+.task-header h3 {
+    margin: 0;                    /* Убираем стандартный отступ */
+    color: #2c3e50;               /* Тёмно-синий цвет */
+}
+
+/* Статус задачи */
+.task-status {
+    padding: 0.3rem 0.8rem;       /* Внутренние отступы */
+    border-radius: 20px;          /* Круглые края (как таблетка) */
+    font-size: 0.85rem;           /* Немного меньше обычного текста */
+    font-weight: 600;             /* Полужирный */
+}
+
+.status-new {
+    background: #e3f2fd;          /* Светло-голубой фон */
+    color: #1565c0;               /* Тёмно-голубой текст */
+}
+
+.status-in_progress {
+    background: #fff3e0;          /* Светло-оранжевый фон */
+    color: #e65100;               /* Тёмно-оранжевый текст */
+}
+
+.status-done {
+    background: #e8f5e9;          /* Светло-зелёный фон */
+    color: #2e7d32;               /* Тёмно-зелёный текст */
+}
+
+/* Описание задачи */
+.task-description {
+    color: #666;                  /* Серый текст */
+    margin-bottom: 1rem;          /* Отступ снизу */
+    line-height: 1.5;            /* Межстрочный интервал */
+}
+
+/* Нижняя часть карточки (даты) */
+.task-footer {
+    display: flex;                /* В строку */
+    justify-content: space-between; /* По краям */
+    font-size: 0.85rem;           /* Мелкий текст */
+    color: #999;                  /* Светло-серый цвет */
+}
+
+.task-deadline {
+    color: #e74c3c;               /* Красный цвет для срока */
+    font-weight: 600;             /* Полужирный */
+}
+
+/* Пустое состояние (когда нет задач) */
+.empty-state {
+    text-align: center;           /* По центру */
+    padding: 3rem;                /* Большие отступы */
+    background: white;            /* Белый фон */
+    border-radius: 8px;           /* Скруглённые углы */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Тень */
+    color: #999;                  /* Серый текст */
+    font-size: 1.2rem;            /* Увеличенный шрифт */
 }
