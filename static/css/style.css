@@ -302,7 +302,6 @@ main {
     margin-bottom: 1rem;                          /* Отступ снизу */
     background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%); /* Градиент текста */
     -webkit-background-clip: text;                /* Обрезаем фон по тексту */
-    -webkit-text-fill-color: transparent;          /* Делаем текст прозрачным (виден градиент) */
     background-clip: text;                        /* Стандартное свойство */
 }
 
