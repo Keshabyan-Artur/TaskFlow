@@ -10,6 +10,17 @@ app.config['SECRET_KEY'] = 'your-secret-key-change-in-production'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+# ОТКЛЮЧАЕМ КЭШ (чтобы не было проблем с обновлением)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+
+@app.after_request
+def add_header(response):
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
+
 # ========== БАЗА ДАННЫХ ==========
 db = SQLAlchemy(app)
 
@@ -151,6 +162,73 @@ def add_task():
     db.session.commit()
     
     flash('Задача создана!', 'success')
+    return redirect(url_for('dashboard'))
+
+@app.route('/edit_task/<int:task_id>', methods=['GET', 'POST'])
+@login_required
+def edit_task(task_id):
+    task = Task.query.get_or_404(task_id)
+    
+    # Проверяем, что задача принадлежит текущему пользователю
+    if task.user_id != current_user.id:
+        flash('У вас нет доступа к этой задаче!', 'error')
+        return redirect(url_for('dashboard'))
+    
+    if request.method == 'POST':
+        title = request.form.get('title')
+        description = request.form.get('description')
+        deadline_str = request.form.get('deadline')
+        
+        if not title:
+            flash('Название задачи обязательно!', 'error')
+            return redirect(url_for('edit_task', task_id=task_id))
+        
+        task.title = title
+        task.description = description or ''
+        
+        if deadline_str:
+            try:
+                task.deadline = datetime.strptime(deadline_str, '%Y-%m-%d').date()
+            except ValueError:
+                task.deadline = None
+        else:
+            task.deadline = None
+        
+        db.session.commit()
+        flash('Задача обновлена!', 'success')
+        return redirect(url_for('dashboard'))
+    
+    return render_template('edit_task.html', task=task)
+
+@app.route('/delete_task/<int:task_id>')
+@login_required
+def delete_task(task_id):
+    task = Task.query.get_or_404(task_id)
+    
+    if task.user_id != current_user.id:
+        flash('У вас нет доступа к этой задаче!', 'error')
+        return redirect(url_for('dashboard'))
+    
+    db.session.delete(task)
+    db.session.commit()
+    
+    flash('Задача удалена!', 'info')
+    return redirect(url_for('dashboard'))
+
+@app.route('/change_status/<int:task_id>/<status>')
+@login_required
+def change_status(task_id, status):
+    task = Task.query.get_or_404(task_id)
+    
+    if task.user_id != current_user.id:
+        flash('У вас нет доступа к этой задаче!', 'error')
+        return redirect(url_for('dashboard'))
+    
+    if status in ['new', 'in_progress', 'done']:
+        task.status = status
+        db.session.commit()
+        flash(f'Статус изменён!', 'success')
+    
     return redirect(url_for('dashboard'))
 
 # ========== СОЗДАНИЕ ТАБЛИЦ ПРИ ПЕРВОМ ЗАПУСКЕ ==========

@@ -1,12 +1,70 @@
 /* ============================================
    БАЗОВЫЙ СБРОС СТИЛЕЙ (RESET)
-   Убираем встроенные отступы браузера
+   Убираем все встроенные отступы браузера
    ============================================ */
 
 * {
-    margin: 0;            /* Убираем внешние отступы у всех элементов */
-    padding: 0;           /* Убираем внутренние отступы у всех элементов */
-    box-sizing: border-box; /* Ширина элемента включает padding и border */
+    margin: 0;                                    /* Убираем внешние отступы у всех элементов */
+    padding: 0;                                   /* Убираем внутренние отступы у всех элементов */
+    box-sizing: border-box;                       /* Ширина элемента включает padding и border */
+}
+
+/* ============================================
+   ПЕРЕМЕННЫЕ (CSS-переменные для удобства)
+   Меняй цвета здесь — они применятся везде
+   ============================================ */
+
+:root {
+    /* Основной цвет (фиолетовый) */
+    --primary: #4f46e5;                           /* Основной цвет кнопок и акцентов */
+    --primary-hover: #4338ca;                     /* Цвет при наведении на основные кнопки */
+    --primary-light: #eef2ff;                     /* Светлый фон для основного цвета */
+
+    /* Цвет успеха (зелёный) */
+    --success: #10b981;                           /* Зелёный для выполненных задач */
+    --success-light: #ecfdf5;                     /* Светло-зелёный фон */
+
+    /* Цвет предупреждения (оранжевый) */
+    --warning: #f59e0b;                           /* Оранжевый для задач в работе */
+    --warning-light: #fffbeb;                     /* Светло-оранжевый фон */
+
+    /* Цвет опасности (красный) */
+    --danger: #ef4444;                            /* Красный для удаления */
+    --danger-light: #fef2f2;                      /* Светло-красный фон */
+
+    /* Цвет информации (голубой) */
+    --info: #3b82f6;                              /* Голубой для новых задач */
+    --info-light: #eff6ff;                        /* Светло-голубой фон */
+
+    /* Оттенки серого */
+    --dark: #1e293b;                              /* Почти чёрный */
+    --gray-50: #f8fafc;                           /* Самый светлый серый (фон) */
+    --gray-100: #f1f5f9;                          /* Светло-серый */
+    --gray-200: #e2e8f0;                          /* Серый для границ */
+    --gray-300: #cbd5e1;                          /* Серый для неактивных элементов */
+    --gray-400: #94a3b8;                          /* Серый для текста подвала */
+    --gray-500: #64748b;                          /* Серый для обычного текста */
+    --gray-600: #475569;                          /* Тёмно-серый */
+    --gray-700: #334155;                          /* Тёмно-серый для заголовков */
+    --gray-800: #1e293b;                          /* Почти чёрный для основного текста */
+    --gray-900: #0f172a;                          /* Чёрный для шапки */
+
+    /* Тени */
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);      /* Маленькая тень */
+    --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06); /* Обычная тень */
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06); /* Средняя тень */
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05); /* Большая тень */
+    --shadow-xl: 0 20px 25px rgba(0,0,0,0.1), 0 10px 10px rgba(0,0,0,0.04); /* Огромная тень */
+
+    /* Скругления углов */
+    --radius-sm: 6px;                             /* Маленькое скругление */
+    --radius: 8px;                                /* Обычное скругление */
+    --radius-lg: 12px;                            /* Большое скругление */
+    --radius-xl: 16px;                            /* Очень большое скругление */
+    --radius-full: 50%;                           /* Круглая форма */
+
+    /* Анимация */
+    --transition: all 0.2s ease;                  /* Плавный переход для всех интерактивных элементов */
 }
 
 /* ============================================
@@ -14,47 +72,79 @@
    ============================================ */
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Шрифт текста на всём сайте */
-    background: #f9f9fa;     /* белый фон страницы */
-    color: #070606;             /* черный цвет текста */
-    min-height: 100vh;       /* Минимальная высота = высота экрана */
-    display: flex;           /* Включаем flex-раскладку */
-    flex-direction: column;  /* Элементы идут сверху вниз (шапка, контент, подвал) */
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; /* Системный шрифт */
+    background: linear-gradient(135deg, #f0f4ff 0%, #e8ecf8 50%, #f0f2f5 100%); /* Градиентный фон */
+    background-attachment: fixed;                 /* Фон не прокручивается при скролле */
+    color: var(--gray-800);                       /* Цвет текста по умолчанию */
+    min-height: 100vh;                            /* Минимальная высота = высота экрана */
+    display: flex;                                /* Flex-раскладка */
+    flex-direction: column;                       /* Элементы идут сверху вниз */
+    line-height: 1.6;                             /* Межстрочный интервал */
 }
 
 /* ============================================
-   НАВИГАЦИОННАЯ ПАНЕЛЬ (ШАПКА САЙТА)
+   НАВИГАЦИОННАЯ ПАНЕЛЬ (ШАПКА)
    ============================================ */
 
 nav {
-    background: #080808;     /* черный фон шапки */
-    color: white;            /* Белый цвет текста в шапке */
-    padding: 1rem 2rem;      /* Внутренние отступы: 1rem сверху/снизу, 2rem слева/справа */
+    background: linear-gradient(135deg, var(--gray-900) 0%, var(--gray-800) 100%); /* Градиент от чёрного к тёмно-серому */
+    color: white;                                 /* Белый текст */
+    padding: 0 2rem;                              /* Отступы слева и справа */
+    box-shadow: var(--shadow-lg);                  /* Большая тень */
+    position: sticky;                             /* Прилипает к верху при прокрутке */
+    top: 0;                                       /* Прилипает к самому верху */
+    z-index: 1000;                                /* Поверх всех элементов */
+    backdrop-filter: blur(10px);                  /* Размытие фона под шапкой */
 }
 
 .nav-container {
-    max-width: 1200px;       /* Максимальная ширина контейнера на больших экранах */
-    margin: 0 auto;          /* Центрируем контейнер по горизонтали */
-    display: flex;           /* Включаем flex для расположения элементов в строку */
-    justify-content: space-between; /* Логотип слева, ссылки справа */
-    align-items: center;     /* Выравниваем элементы по вертикали по центру */
+    max-width: 1200px;                            /* Максимальная ширина */
+    margin: 0 auto;                               /* Центрирование */
+    display: flex;                                /* Flex-раскладка */
+    justify-content: space-between;               /* Логотип слева, ссылки справа */
+    align-items: center;                          /* Выравнивание по вертикали */
+    height: 64px;                                 /* Фиксированная высота шапки */
 }
 
 .logo {
-    color: white;            /* Белый цвет логотипа */
-    text-decoration: none;   /* Убираем подчёркивание у ссылки-логотипа */
-    font-size: 1.5rem;       /* Размер шрифта логотипа (в 1.5 раза больше обычного) */
-    font-weight: bold;       /* Жирное начертание */
+    color: white;                                 /* Белый цвет логотипа */
+    text-decoration: none;                        /* Убираем подчёркивание */
+    font-size: 1.5rem;                            /* Размер шрифта */
+    font-weight: 700;                             /* Жирный текст */
+    display: flex;                                /* Flex для иконки и текста */
+    align-items: center;                          /* Выравнивание по центру */
+    gap: 0.5rem;                                  /* Расстояние между иконкой и текстом */
+    transition: var(--transition);                 /* Плавная анимация */
 }
 
-.nav-links a, .nav-links span {
-    color: white;            /* Белый цвет ссылок в навигации */
-    text-decoration: none;   /* Убираем подчёркивание у ссылок */
-    margin-left: 1.5rem;     /* Отступ слева у каждого элемента */
+.logo:hover {
+    transform: scale(1.05);                       /* Лёгкое увеличение при наведении */
+    color: #e0e7ff;                               /* Светло-фиолетовый при наведении */
+}
+
+.nav-links {
+    display: flex;                                /* Ссылки в одну строку */
+    align-items: center;                          /* Выравнивание по центру */
+    gap: 1.5rem;                                  /* Расстояние между ссылками */
+}
+
+.nav-links a {
+    color: var(--gray-300);                       /* Светло-серый цвет ссылок */
+    text-decoration: none;                        /* Убираем подчёркивание */
+    font-weight: 500;                             /* Полужирный текст */
+    padding: 0.5rem 1rem;                         /* Внутренние отступы */
+    border-radius: var(--radius);                 /* Скруглённые углы */
+    transition: var(--transition);                 /* Плавная анимация */
 }
 
 .nav-links a:hover {
-    text-decoration: underline; /* Подчёркивание при наведении мыши */
+    color: white;                                 /* Белый при наведении */
+    background: rgba(255,255,255,0.1);            /* Полупрозрачный белый фон */
+}
+
+.nav-links span {
+    color: var(--gray-400);                       /* Серый цвет для имени пользователя */
+    font-weight: 500;                             /* Полужирный текст */
 }
 
 /* ============================================
@@ -62,47 +152,87 @@ nav {
    ============================================ */
 
 main {
-    flex: 1;                 /* Занимает всё доступное пространство (прижимает подвал вниз) */
-    max-width: 1200px;       /* Максимальная ширина контента */
-    margin: 2rem auto;       /* Отступ 2rem сверху/снизу и авто по бокам (центрирование) */
-    padding: 0 1rem;         /* Внутренний отступ 1rem слева и справа */
-    width: 100%;             /* На маленьких экранах занимает всю ширину */
+    flex: 1;                                      /* Занимает всё доступное пространство */
+    max-width: 1200px;                            /* Максимальная ширина */
+    margin: 2rem auto;                            /* Центрирование с отступом сверху */
+    padding: 0 1.5rem;                            /* Отступы слева и справа */
+    width: 100%;                                  /* На всю ширину на маленьких экранах */
 }
 
 /* ============================================
-   ФОРМЫ (РЕГИСТРАЦИЯ И ВХОД)
+   ФОРМЫ (РЕГИСТРАЦИЯ, ВХОД, СОЗДАНИЕ ЗАДАЧ)
    ============================================ */
 
 .form-container {
-    max-width: 400px;        /* Максимальная ширина формы */
-    margin: 2rem auto;       /* Центрируем форму с отступом сверху */
-    background: white;       /* Белый фон формы */
-    padding: 2rem;           /* Внутренний отступ со всех сторон */
-    border-radius: 8px;      /* Скруглённые углы формы */
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Лёгкая тень вокруг формы */
+    max-width: 480px;                             /* Максимальная ширина формы */
+    margin: 2rem auto;                            /* Центрирование */
+    background: white;                            /* Белый фон */
+    padding: 2.5rem;                              /* Большие внутренние отступы */
+    border-radius: var(--radius-xl);              /* Сильно скруглённые углы */
+    box-shadow: var(--shadow-xl);                  /* Большая тень */
+    border: 1px solid var(--gray-200);            /* Тонкая серая рамка */
+}
+
+.form-container h1,
+.form-container h2 {
+    margin-bottom: 1.5rem;                        /* Отступ снизу */
+    color: var(--gray-900);                       /* Тёмный цвет текста */
+    font-weight: 700;                             /* Жирный текст */
+    text-align: center;                           /* Заголовок по центру */
 }
 
 .form-group {
-    margin-bottom: 1rem;     /* Отступ снизу у каждой группы полей */
+    margin-bottom: 1.25rem;                       /* Отступ между полями */
 }
 
 .form-group label {
-    display: block;          /* Заголовок поля на отдельной строке */
-    margin-bottom: 0.5rem;   /* Отступ между заголовком и полем ввода */
-    font-weight: 600;        /* Полужирный шрифт заголовка */
+    display: block;                               /* Заголовок на отдельной строке */
+    margin-bottom: 0.5rem;                        /* Отступ между заголовком и полем */
+    font-weight: 600;                             /* Полужирный текст */
+    color: var(--gray-700);                       /* Тёмно-серый цвет */
+    font-size: 0.9rem;                            /* Немного меньше обычного */
 }
 
-.form-group input {
-    width: 100%;             /* Поле ввода на всю ширину контейнера */
-    padding: 0.5rem;         /* Внутренний отступ внутри поля */
-    border: 1px solid #ddd;  /* Светло-серая рамка вокруг поля */
-    border-radius: 4px;      /* Слегка скруглённые углы поля */
-    font-size: 1rem;         /* Размер шрифта как у обычного текста */
+.form-group input,
+.form-group textarea {
+    width: 100%;                                  /* На всю ширину контейнера */
+    padding: 0.75rem 1rem;                        /* Внутренние отступы */
+    border: 2px solid var(--gray-200);            /* Серая рамка */
+    border-radius: var(--radius);                 /* Скруглённые углы */
+    font-size: 1rem;                              /* Обычный размер текста */
+    transition: var(--transition);                 /* Плавная анимация */
+    background: var(--gray-50);                   /* Светло-серый фон */
+    color: var(--gray-800);                       /* Тёмный текст */
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;                                /* Убираем стандартную обводку */
+    border-color: var(--primary);                  /* Фиолетовая рамка при фокусе */
+    background: white;                            /* Белый фон при фокусе */
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); /* Свечение вокруг поля */
+}
+
+.form-group textarea {
+    resize: vertical;                             /* Можно растягивать только вниз */
+    min-height: 80px;                             /* Минимальная высота */
+    font-family: inherit;                         /* Тот же шрифт, что и везде */
 }
 
 .form-footer {
-    margin-top: 1rem;        /* Отступ сверху */
-    text-align: center;      /* Текст по центру */
+    margin-top: 1.5rem;                           /* Отступ сверху */
+    text-align: center;                           /* Текст по центру */
+    color: var(--gray-500);                       /* Серый текст */
+}
+
+.form-footer a {
+    color: var(--primary);                        /* Фиолетовый цвет ссылки */
+    text-decoration: none;                        /* Без подчёркивания */
+    font-weight: 600;                             /* Полужирный текст */
+}
+
+.form-footer a:hover {
+    text-decoration: underline;                   /* Подчёркивание при наведении */
 }
 
 /* ============================================
@@ -110,27 +240,51 @@ main {
    ============================================ */
 
 .btn {
-    display: inline-block;   /* Позволяет задать ширину и отступы */
-    padding: 0.6rem 1.5rem;  /* Внутренние отступы: 0.6rem сверху/снизу, 1.5rem слева/справа */
-    border: none;            /* Убираем рамку */
-    border-radius: 8px;      /* Скруглённые углы */
-    cursor: pointer;         /* При наведении курсор меняется на "руку" */
-    font-size: 1rem;         /* Размер шрифта */
-    text-decoration: none;   /* Убираем подчёркивание у ссылок-кнопок */
+    display: inline-flex;                         /* Flex для иконки и текста */
+    align-items: center;                          /* Выравнивание по вертикали */
+    justify-content: center;                      /* Выравнивание по горизонтали */
+    gap: 0.5rem;                                  /* Расстояние между иконкой и текстом */
+    padding: 0.75rem 1.5rem;                      /* Внутренние отступы */
+    border: none;                                 /* Без рамки */
+    border-radius: var(--radius);                 /* Скруглённые углы */
+    cursor: pointer;                              /* Курсор-рука */
+    font-size: 1rem;                              /* Размер шрифта */
+    font-weight: 600;                             /* Полужирный текст */
+    text-decoration: none;                        /* Без подчёркивания */
+    transition: var(--transition);                 /* Плавная анимация */
 }
 
 .btn-primary {
-    background: #30b446;     /* Голубой фон кнопки */
-    color: white;            /* Белый текст */
+    background: var(--primary);                    /* Фиолетовый фон */
+    color: white;                                 /* Белый текст */
+    box-shadow: var(--shadow-sm);                  /* Лёгкая тень */
 }
 
 .btn-primary:hover {
-    background: #2980b9;     /* Темнеет при наведении мыши */
+    background: var(--primary-hover);              /* Темнее при наведении */
+    transform: translateY(-1px);                  /* Приподнимается на 1px */
+    box-shadow: var(--shadow-md);                  /* Увеличенная тень */
 }
 
 .btn-secondary {
-    background: #58a6ac;     /* Серый фон */
-    color: white;            /* Белый текст */
+    background: var(--gray-200);                   /* Светло-серый фон */
+    color: var(--gray-700);                       /* Тёмно-серый текст */
+}
+
+.btn-secondary:hover {
+    background: var(--gray-300);                   /* Темнее при наведении */
+    transform: translateY(-1px);                  /* Приподнимается */
+}
+
+.btn-danger {
+    background: var(--danger);                     /* Красный фон */
+    color: white;                                 /* Белый текст */
+}
+
+.btn-danger:hover {
+    background: #dc2626;                          /* Темнее при наведении */
+    transform: translateY(-1px);                  /* Приподнимается */
+    box-shadow: var(--shadow-md);                  /* Тень */
 }
 
 /* ============================================
@@ -138,23 +292,38 @@ main {
    ============================================ */
 
 .hero {
-    text-align: center;      /* Текст по центру */
-    padding: 4rem 2rem;      /* Большие внутренние отступы */
+    text-align: center;                           /* Всё по центру */
+    padding: 5rem 2rem;                           /* Большие отступы */
 }
 
 .hero h1 {
-    font-size: 3rem;         /* Очень крупный заголовок */
-    margin-bottom: 1rem;     /* Отступ снизу */
+    font-size: 3.5rem;                            /* Очень крупный заголовок */
+    font-weight: 800;                             /* Очень жирный текст */
+    margin-bottom: 1rem;                          /* Отступ снизу */
+    background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%); /* Градиент текста */
+    -webkit-background-clip: text;                /* Обрезаем фон по тексту */
+    -webkit-text-fill-color: transparent;          /* Делаем текст прозрачным (виден градиент) */
+    background-clip: text;                        /* Стандартное свойство */
 }
 
 .hero p {
-    font-size: 1.2rem;       /* Увеличенный размер описания */
-    color: #070000;             /* Серый цвет текста */
-    margin-bottom: 2rem;     /* Отступ снизу */
+    font-size: 1.25rem;                           /* Увеличенный текст */
+    color: var(--gray-500);                       /* Серый цвет */
+    margin-bottom: 2.5rem;                        /* Отступ снизу */
+    max-width: 500px;                             /* Максимальная ширина */
+    margin-left: auto;                            /* Центрирование */
+    margin-right: auto;                           /* Центрирование */
+}
+
+.hero-buttons {
+    display: flex;                                /* Кнопки в строку */
+    justify-content: center;                      /* По центру */
+    gap: 1rem;                                    /* Расстояние между кнопками */
 }
 
 .hero-buttons .btn {
-    margin: 0 0.5rem;        /* Отступы слева и справа между кнопками */
+    padding: 0.85rem 2rem;                        /* Увеличенные кнопки */
+    font-size: 1.1rem;                            /* Увеличенный текст */
 }
 
 /* ============================================
@@ -162,31 +331,44 @@ main {
    ============================================ */
 
 .flash-messages {
-    margin-bottom: 1rem;     /* Отступ снизу от блока с сообщениями */
+    margin-bottom: 1.5rem;                        /* Отступ снизу */
 }
 
 .flash {
-    padding: 1rem;           /* Внутренний отступ сообщения */
-    border-radius: 10px;      /* Скруглённые углы */
-    margin-bottom: 0.5rem;   /* Отступ между сообщениями */
+    padding: 1rem 1.25rem;                        /* Внутренние отступы */
+    border-radius: var(--radius);                 /* Скруглённые углы */
+    margin-bottom: 0.5rem;                        /* Отступ между сообщениями */
+    font-weight: 500;                             /* Полужирный текст */
+    animation: slideDown 0.3s ease;               /* Анимация появления */
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;                               /* Начало: прозрачное */
+        transform: translateY(-10px);             /* Начало: смещено вверх */
+    }
+    to {
+        opacity: 1;                               /* Конец: видимое */
+        transform: translateY(0);                 /* Конец: на месте */
+    }
 }
 
 .flash-success {
-    background: #d4edda;     /* Светло-зелёный фон (успех) */
-    color: #155724;          /* Тёмно-зелёный текст */
-    border: 1px solid #c3e6cb; /* Зелёная рамка */
+    background: var(--success-light);              /* Светло-зелёный фон */
+    color: #065f46;                               /* Тёмно-зелёный текст */
+    border: 1px solid #a7f3d0;                    /* Зелёная рамка */
 }
 
 .flash-error {
-    background: #f8d7da;     /* Светло-красный фон (ошибка) */
-    color: #721c24;          /* Тёмно-красный текст */
-    border: 1px solid #f5c6cb; /* Красная рамка */
+    background: var(--danger-light);               /* Светло-красный фон */
+    color: #991b1b;                               /* Тёмно-красный текст */
+    border: 1px solid #fecaca;                    /* Красная рамка */
 }
 
 .flash-info {
-    background: #d1ecf1;     /* Светло-голубой фон (информация) */
-    color: #0c5460;          /* Тёмно-голубой текст */
-    border: 1px solid #bee5eb; /* Голубая рамка */
+    background: var(--info-light);                 /* Светло-голубой фон */
+    color: #1e40af;                               /* Тёмно-голубой текст */
+    border: 1px solid #bfdbfe;                    /* Голубая рамка */
 }
 
 /* ============================================
@@ -194,124 +376,238 @@ main {
    ============================================ */
 
 footer {
-    background: #010102;     /* черный фон (как у шапки) */
-    color: white;            /* Белый текст */
-    text-align: center;      /* Текст по центру */
-    padding: 1rem;           /* Внутренний отступ */
+    background: var(--gray-900);                   /* Почти чёрный фон */
+    color: var(--gray-400);                       /* Светло-серый текст */
+    text-align: center;                           /* Текст по центру */
+    padding: 1.5rem;                              /* Внутренние отступы */
+    font-size: 0.9rem;                            /* Немного меньше обычного */
 }
+
 /* ============================================
    СТРАНИЦА ЗАДАЧ (DASHBOARD)
    ============================================ */
 
 .dashboard {
-    width: 100%;             /* Занимает всю доступную ширину */
+    width: 100%;                                  /* На всю ширину */
 }
 
 .dashboard h1 {
-    margin-bottom: 2rem;     /* Отступ снизу от заголовка */
-    color: #2c3e50;          /* Тёмно-синий цвет заголовка */
+    margin-bottom: 2rem;                          /* Отступ снизу */
+    color: var(--gray-900);                       /* Тёмный цвет */
+    font-weight: 800;                             /* Очень жирный */
+    font-size: 2rem;                              /* Крупный заголовок */
 }
 
-/* Поле ввода описания */
-.form-group textarea {
-    width: 100%;             /* На всю ширину */
-    padding: 0.5rem;         /* Внутренний отступ */
-    border: 1px solid #ddd;  /* Серая рамка */
-    border-radius: 4px;      /* Скруглённые углы */
-    font-size: 1rem;         /* Размер шрифта */
-    font-family: inherit;    /* Такой же шрифт как везде */
-    resize: vertical;        /* Можно растягивать только по вертикали */
-}
-
-/* Контейнер для списка задач */
+/* Контейнер списка задач */
 .tasks-container {
-    margin-top: 2rem;        /* Отступ сверху */
+    margin-top: 2.5rem;                           /* Отступ сверху */
 }
 
 .tasks-container h2 {
-    margin-bottom: 1rem;     /* Отступ снизу */
-    color: #2c3e50;          /* Тёмно-синий цвет */
+    margin-bottom: 1.25rem;                       /* Отступ снизу */
+    color: var(--gray-800);                       /* Тёмно-серый цвет */
+    font-weight: 700;                             /* Жирный текст */
 }
 
 /* Карточка задачи */
 .task-card {
-    background: white;            /* Белый фон */
-    padding: 1.5rem;              /* Внутренний отступ */
-    margin-bottom: 1rem;          /* Отступ между карточками */
-    border-radius: 8px;           /* Скруглённые углы */
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Лёгкая тень */
-    border-left: 4px solid #3498db; /* Синяя полоска слева */
-    transition: transform 0.2s;   /* Плавная анимация при наведении */
+    background: white;                            /* Белый фон */
+    padding: 1.5rem;                              /* Внутренние отступы */
+    margin-bottom: 1rem;                          /* Отступ между карточками */
+    border-radius: var(--radius-lg);              /* Сильно скруглённые углы */
+    box-shadow: var(--shadow);                     /* Обычная тень */
+    border-left: 5px solid var(--primary);         /* Фиолетовая полоса слева */
+    transition: var(--transition);                 /* Плавная анимация */
+    position: relative;                           /* Для позиционирования псевдоэлемента */
+    overflow: hidden;                             /* Скрываем всё, что выходит за границы */
+}
+
+.task-card::before {
+    content: '';                                  /* Пустой псевдоэлемент */
+    position: absolute;                           /* Абсолютное позиционирование */
+    top: 0;                                       /* От верхнего края */
+    left: 0;                                      /* От левого края */
+    width: 100%;                                  /* На всю ширину */
+    height: 100%;                                 /* На всю высоту */
+    background: linear-gradient(135deg, transparent 0%, rgba(79, 70, 229, 0.02) 100%); /* Едва заметный градиент */
+    pointer-events: none;                         /* Не мешает кликам */
 }
 
 .task-card:hover {
-    transform: translateY(-2px);  /* Приподнимается при наведении */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Тень усиливается */
+    transform: translateY(-3px);                  /* Приподнимается при наведении */
+    box-shadow: var(--shadow-lg);                  /* Увеличенная тень */
 }
 
 /* Заголовок карточки */
 .task-header {
-    display: flex;                /* Располагаем в строку */
-    justify-content: space-between; /* Название слева, статус справа */
-    align-items: center;          /* По центру по вертикали */
-    margin-bottom: 0.5rem;        /* Отступ снизу */
+    display: flex;                                /* Название и статус в строку */
+    justify-content: space-between;               /* По краям */
+    align-items: flex-start;                      /* По верхнему краю */
+    margin-bottom: 0.75rem;                       /* Отступ снизу */
+    gap: 1rem;                                    /* Расстояние между элементами */
 }
 
 .task-header h3 {
-    margin: 0;                    /* Убираем стандартный отступ */
-    color: #2c3e50;               /* Тёмно-синий цвет */
+    margin: 0;                                    /* Убираем стандартный отступ */
+    color: var(--gray-900);                       /* Тёмный цвет */
+    font-weight: 700;                             /* Жирный текст */
+    font-size: 1.15rem;                           /* Немного увеличенный */
 }
 
-/* Статус задачи */
+/* Статус задачи (таблетка) */
 .task-status {
-    padding: 0.3rem 0.8rem;       /* Внутренние отступы */
-    border-radius: 20px;          /* Круглые края (как таблетка) */
-    font-size: 0.85rem;           /* Немного меньше обычного текста */
-    font-weight: 600;             /* Полужирный */
+    padding: 0.35rem 0.85rem;                     /* Внутренние отступы */
+    border-radius: 100px;                         /* Полностью скруглённые края (таблетка) */
+    font-size: 0.8rem;                            /* Маленький текст */
+    font-weight: 600;                             /* Полужирный */
+    white-space: nowrap;                          /* Не переносить текст */
+    letter-spacing: 0.02em;                       /* Расстояние между буквами */
 }
 
 .status-new {
-    background: #e3f2fd;          /* Светло-голубой фон */
-    color: #1565c0;               /* Тёмно-голубой текст */
+    background: var(--info-light);                 /* Светло-голубой фон */
+    color: #1e40af;                               /* Тёмно-голубой текст */
 }
 
 .status-in_progress {
-    background: #fff3e0;          /* Светло-оранжевый фон */
-    color: #e65100;               /* Тёмно-оранжевый текст */
+    background: var(--warning-light);              /* Светло-оранжевый фон */
+    color: #92400e;                               /* Тёмно-оранжевый текст */
 }
 
 .status-done {
-    background: #e8f5e9;          /* Светло-зелёный фон */
-    color: #2e7d32;               /* Тёмно-зелёный текст */
+    background: var(--success-light);              /* Светло-зелёный фон */
+    color: #065f46;                               /* Тёмно-зелёный текст */
 }
 
 /* Описание задачи */
 .task-description {
-    color: #666;                  /* Серый текст */
-    margin-bottom: 1rem;          /* Отступ снизу */
-    line-height: 1.5;            /* Межстрочный интервал */
+    color: var(--gray-600);                       /* Серый текст */
+    margin-bottom: 1rem;                          /* Отступ снизу */
+    line-height: 1.6;                             /* Межстрочный интервал */
 }
 
 /* Нижняя часть карточки (даты) */
 .task-footer {
-    display: flex;                /* В строку */
-    justify-content: space-between; /* По краям */
-    font-size: 0.85rem;           /* Мелкий текст */
-    color: #999;                  /* Светло-серый цвет */
+    display: flex;                                /* Даты в строку */
+    justify-content: space-between;               /* По краям */
+    align-items: center;                          /* По центру */
+    font-size: 0.85rem;                           /* Мелкий текст */
+    color: var(--gray-400);                       /* Светло-серый */
+    flex-wrap: wrap;                              /* Перенос на новую строку */
+    gap: 0.5rem;                                  /* Расстояние */
 }
 
 .task-deadline {
-    color: #e74c3c;               /* Красный цвет для срока */
-    font-weight: 600;             /* Полужирный */
+    color: var(--danger);                         /* Красный цвет для срока */
+    font-weight: 600;                             /* Полужирный */
 }
 
-/* Пустое состояние (когда нет задач) */
+/* Пустое состояние (нет задач) */
 .empty-state {
-    text-align: center;           /* По центру */
-    padding: 3rem;                /* Большие отступы */
-    background: white;            /* Белый фон */
-    border-radius: 8px;           /* Скруглённые углы */
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Тень */
-    color: #999;                  /* Серый текст */
-    font-size: 1.2rem;            /* Увеличенный шрифт */
+    text-align: center;                           /* По центру */
+    padding: 4rem 2rem;                           /* Большие отступы */
+    background: white;                            /* Белый фон */
+    border-radius: var(--radius-xl);              /* Сильно скруглённые углы */
+    box-shadow: var(--shadow);                     /* Тень */
+    color: var(--gray-400);                       /* Серый текст */
+    font-size: 1.2rem;                            /* Увеличенный текст */
+}
+
+.empty-state::before {
+    content: '📋';                                /* Иконка перед текстом */
+    display: block;                               /* На отдельной строке */
+    font-size: 4rem;                              /* Огромная иконка */
+    margin-bottom: 1rem;                          /* Отступ снизу */
+}
+
+/* ============================================
+   КНОПКИ УПРАВЛЕНИЯ ЗАДАЧАМИ
+   ============================================ */
+
+.task-actions {
+    display: flex;                                /* Кнопки в строку */
+    justify-content: space-between;               /* По краям */
+    align-items: center;                          /* По центру */
+    margin-top: 1.25rem;                          /* Отступ сверху */
+    padding-top: 1.25rem;                         /* Внутренний отступ сверху */
+    border-top: 1px solid var(--gray-100);        /* Разделительная линия */
+}
+
+/* Кнопки смены статуса */
+.task-status-buttons {
+    display: flex;                                /* Кнопки в строку */
+    gap: 0.5rem;                                  /* Расстояние между кнопками */
+}
+
+.btn-status {
+    display: inline-flex;                         /* Flex для центрирования иконки */
+    align-items: center;                          /* По центру вертикали */
+    justify-content: center;                      /* По центру горизонтали */
+    width: 42px;                                  /* Фиксированная ширина */
+    height: 42px;                                 /* Фиксированная высота */
+    border: 2px solid var(--gray-200);            /* Серая рамка */
+    border-radius: var(--radius-full);            /* Круглая форма */
+    text-decoration: none;                        /* Без подчёркивания */
+    font-size: 1.15rem;                           /* Размер иконки */
+    transition: var(--transition);                /* Плавная анимация */
+    background: white;                            /* Белый фон */
+    opacity: 0.45;                                /* Полупрозрачная (неактивная) */
+}
+
+.btn-status:hover {
+    opacity: 0.85;                                /* Ярче при наведении */
+    transform: scale(1.15);                       /* Увеличение при наведении */
+    box-shadow: var(--shadow-md);                 /* Тень */
+}
+
+.btn-status.active {
+    opacity: 1;                                   /* Полностью непрозрачная (активная) */
+    border-color: var(--primary);                 /* Фиолетовая рамка */
+    background: var(--primary-light);             /* Светло-фиолетовый фон */
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15); /* Свечение */
+}
+
+/* Кнопки редактирования и удаления */
+.task-edit-buttons {
+    display: flex;                                /* Кнопки в строку */
+    gap: 0.75rem;                                 /* Расстояние между кнопками */
+}
+
+.btn-icon {
+    display: inline-flex;                         /* Flex для центрирования иконки */
+    align-items: center;                          /* По центру вертикали */
+    justify-content: center;                      /* По центру горизонтали */
+    width: 42px;                                  /* Фиксированная ширина */
+    height: 42px;                                 /* Фиксированная высота */
+    border: 2px solid var(--gray-200);            /* Серая рамка */
+    border-radius: var(--radius);                 /* Скруглённые углы */
+    text-decoration: none;                        /* Без подчёркивания */
+    font-size: 1.1rem;                            /* Размер иконки */
+    transition: var(--transition);                /* Плавная анимация */
+    background: var(--gray-50);                   /* Светло-серый фон */
+}
+
+.btn-icon:hover {
+    background: var(--gray-100);                  /* Темнее при наведении */
+    transform: scale(1.1);                        /* Увеличение */
+    box-shadow: var(--shadow-md);                 /* Тень */
+}
+
+.btn-delete {
+    background: var(--danger-light);              /* Светло-красный фон */
+    border-color: #fecaca;                        /* Красная рамка */
+    color: var(--danger);                         /* Красный текст */
+}
+
+.btn-delete:hover {
+    background: #fee2e2;                          /* Темнее при наведении */
+    border-color: #fca5a5;                        /* Ярче рамка */
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15); /* Красное свечение */
+}
+
+/* Кнопки в форме редактирования */
+.form-actions {
+    display: flex;                                /* Кнопки в строку */
+    gap: 1rem;                                    /* Расстояние между кнопками */
+    margin-top: 1.5rem;                           /* Отступ сверху */
 }

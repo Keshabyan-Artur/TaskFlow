@@ -55,6 +55,30 @@
                             <span class="task-deadline">⏰ Срок: {{ task.deadline.strftime('%d.%m.%Y') }}</span>
                         {% endif %}
                     </div>
+                    
+                    <!-- Кнопки управления -->
+                    <div class="task-actions">
+                        <div class="task-status-buttons">
+                            <a href="{{ url_for('change_status', task_id=task.id, status='new') }}" 
+                               class="btn-status {% if task.status == 'new' %}active{% endif %}" 
+                               title="Новая">🆕</a>
+                            <a href="{{ url_for('change_status', task_id=task.id, status='in_progress') }}" 
+                               class="btn-status {% if task.status == 'in_progress' %}active{% endif %}" 
+                               title="В работе">🔄</a>
+                            <a href="{{ url_for('change_status', task_id=task.id, status='done') }}" 
+                               class="btn-status {% if task.status == 'done' %}active{% endif %}" 
+                               title="Выполнена">✅</a>
+                        </div>
+                        <div class="task-edit-buttons">
+                            <a href="{{ url_for('edit_task', task_id=task.id) }}" 
+                               class="btn-icon" 
+                               title="Редактировать">✏️</a>
+                            <a href="{{ url_for('delete_task', task_id=task.id) }}" 
+                               class="btn-icon btn-delete" 
+                               title="Удалить"
+                               onclick="return confirm('Удалить задачу «{{ task.title }}»?')">🗑️</a>
+                        </div>
+                    </div>
                 </div>
             {% endfor %}
         {% else %}
