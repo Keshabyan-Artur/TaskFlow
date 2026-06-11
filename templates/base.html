@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TaskFlow - {% block title %}{% endblock %}</title>
+    <title>NoteNook - {% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <nav>
         <div class="nav-container">
-            <a href="{{ url_for('index') }}" class="logo">📋 TaskFlow</a>
+            <a href="{{ url_for('index') }}" class="logo">📋 NoteNook</a>
             <div class="nav-links">
                 {% if current_user.is_authenticated %}
                     <a href="{{ url_for('dashboard') }}">Мои задачи</a>
@@ -39,7 +39,7 @@
     </main>
 
     <footer>
-        <p>© 2026 TaskFlow. Учебный проект.</p>
+        <p>© 2026 NoteNook. Учебный проект.</p>
     </footer>
 </body>
 </html>
